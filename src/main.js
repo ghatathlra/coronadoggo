@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 
+require('./services/whoami');
+
 const {Channel} = require('../models/index');
 const {handle_update} = require('./controllers/handle-update');
 const {CHANNELS} = require('./constants/channels');
