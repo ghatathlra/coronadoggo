@@ -5,6 +5,7 @@ require('./services/whoami');
 
 const {Channel} = require('../models/index');
 const {handle_update} = require('./controllers/handle-update');
+const {send_notification} = require('./controllers/send-notification');
 const {CHANNELS} = require('./constants/channels');
 
 const HOST = process.env.HOST || '127.0.0.1';
@@ -21,6 +22,7 @@ module.exports = async function() {
         app.get('/', (req, res) => {res.end('Corona doggo')});
 
         app.post(`/${BOT_TOKEN}`, handle_update);
+        app.post(`/notify`, send_notification);
 
         for (channel of CHANNELS) {
             await Channel.upsert({channel_name: channel.channel_name, password: channel.password});
