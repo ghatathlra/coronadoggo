@@ -17,9 +17,12 @@ async function handle_update(req, res) {
         const msg_text = msg.text;
         const {first_name} = get_me();
 
-        if (/^\/newchan/.test(msg_text)) {
-            const [command, channel_name, password] = msg_text.split(/\s+/);
-            await create_channel(chat.id, channel_name, password);
+        // if (/^\/newchan/.test(msg_text)) {
+        //     const [command, channel_name, password] = msg_text.split(/\s+/);
+        //     await create_channel(chat.id, channel_name, password);
+        // } else 
+        if (/^\/start/.test(msg_text)) {
+            await reply(chat.id, `Hello there 👋👋👋. My name is ${first_name}. So nice to meet you! 😊`);
         } else if (/^\/subscribe/.test(msg_text)) {
             const [command, channel_name, password] = msg_text.split(/\s+/);
             await subscribe_channel(chat.id, channel_name, password);
@@ -29,7 +32,7 @@ async function handle_update(req, res) {
         } else if (/^\/mychan/.test(msg_text)) {
             await get_my_channels(chat.id);
         } else {
-            await reply(chat.id, `Sorry, ${first_name} cannot understand what you're saying. 😰😰😰`)
+            await reply(chat.id, `Sorry, ${first_name} don't understand what you're saying. 😰😰😰`)
         }
 
     } catch (err) {
@@ -81,7 +84,7 @@ async function unsubscribe_channel(chat_id, channel_name) {
         const sub = await Subscription.findOne({where: {[Op.and]: [{channel_name}, {chat_id}]}});
         if (sub) {
             await sub.destroy({force: true});
-            await reply(chat_id, `Unsubscribed ${channel_name}`);
+            await reply(chat_id, `Unsubscribed ${channel_name}. 👍`);
         } else {
             await reply(chat_id, 'To unsubscribe this channel, you must subscribe it first! 👌👌👌');
         }
