@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const morgan = require('morgan');
 
 require('./services/whoami');
 
@@ -18,6 +19,7 @@ module.exports = async function() {
 
         app.use(express.json());
         app.use(cors());
+        app.use(morgan('short'));
 
         app.get('/', (req, res) => {res.end('Corona doggo')});
 
