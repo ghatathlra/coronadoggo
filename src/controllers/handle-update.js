@@ -22,7 +22,14 @@ async function handle_update(req, res) {
         //     await create_channel(chat.id, channel_name, password);
         // } else 
         if (/^\/start/.test(msg_text)) {
-            await reply(chat.id, `Hello there 👋👋👋. My name is ${first_name}. So nice to meet you! 😊`);
+            await reply(chat.id, `Hello there 👋👋👋. My name is ${first_name}. So nice to meet you! 😊\nGet to know me by /help command. 👌`);
+        } else if (/^\/help/.test(msg_text)) {
+            await reply(chat.id, [
+                `These are what ${first_name} can do for you:\n`,
+                '\n/subscribe [channel] [password] \n        Subscribe a channel with password\n',
+                '\n/unsubscribe [channel] \n        Unsubscribe a channel\n',
+                '\n/mychan \n        Show your subscribed channels',
+            ].join(''));
         } else if (/^\/subscribe/.test(msg_text)) {
             const [command, channel_name, password] = msg_text.split(/\s+/);
             await subscribe_channel(chat.id, channel_name, password);
